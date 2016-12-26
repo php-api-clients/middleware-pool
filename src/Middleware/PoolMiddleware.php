@@ -45,7 +45,10 @@ class PoolMiddleware implements MiddlewareInterface
      */
     public function post(ResponseInterface $response, array $options = []): CancellablePromiseInterface
     {
-        $this->allocation->releaseOne();
+        if ($this->allocation instanceof Allocation) {
+            $this->allocation->releaseOne();
+        }
+
         return resolve($response);
     }
 
