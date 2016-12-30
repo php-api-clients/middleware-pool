@@ -18,7 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "ApiClients\\Foundation\\Pool\\": "src/"
+      "ApiClients\\Middleware\\Pool\\": "src/"
     },
     "files": [
       "AllocationPromise.php"
@@ -26,7 +26,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "ApiClients\\Tests\\Foundation\\Pool\\": "tests/"
+      "ApiClients\\Tests\\Middleware\\Pool\\": "tests/"
     }
   },
   "config": {

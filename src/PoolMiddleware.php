@@ -1,10 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace ApiClients\Foundation\Pool\Middleware;
+namespace ApiClients\Middleware\Pool;
 
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
 use ApiClients\Foundation\Middleware\Priority;
-use ApiClients\Foundation\Pool\Options;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;

@@ -1,8 +1,8 @@
 <?php
 
-namespace ApiClients\Tests\Foundation\Cache\Middleware;
+namespace ApiClients\Tests\Middleware\Pool;
 
-use ApiClients\Foundation\Pool\Middleware\PoolMiddleware;
+use ApiClients\Middleware\Pool\PoolMiddleware;
 use ApiClients\Tools\TestUtilities\TestCase;
 use Prophecy\Argument;
 use Psr\Http\Message\RequestInterface;
