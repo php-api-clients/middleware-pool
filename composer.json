@@ -11,7 +11,7 @@
   "require": {
     "php": "^7.0",
     "api-clients/middleware": "^1.0",
-    "joshdifabio/resource-pool": "^0.1.0"
+    "joshdifabio/resource-pool": "^0.2.0"
   },
   "require-dev": {
     "api-clients/test-utilities": "^2.0"
@@ -19,10 +19,7 @@
   "autoload": {
     "psr-4": {
       "ApiClients\\Middleware\\Pool\\": "src/"
-    },
-    "files": [
-      "AllocationPromise.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
