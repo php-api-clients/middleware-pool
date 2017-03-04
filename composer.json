@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": "^7.0",
-    "api-clients/middleware": "^1.0",
+    "api-clients/middleware": "^2.0",
     "joshdifabio/resource-pool": "^0.2.0"
   },
   "require-dev": {

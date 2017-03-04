@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "daa0bc0694829a6b0fdcbdbf9f35c95a",
+    "content-hash": "5204260869a939eb2669a7fe84f09d69",
     "packages": [
         {
             "name": "api-clients/middleware",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-api-clients/middleware.git",
-                "reference": "849488afde06d2a9211e10a2d75ff0c364629a80"
+                "reference": "3dbb05edfd01086368536ae176d444edf8093356"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-api-clients/middleware/zipball/849488afde06d2a9211e10a2d75ff0c364629a80",
-                "reference": "849488afde06d2a9211e10a2d75ff0c364629a80",
+                "url": "https://api.github.com/repos/php-api-clients/middleware/zipball/3dbb05edfd01086368536ae176d444edf8093356",
+                "reference": "3dbb05edfd01086368536ae176d444edf8093356",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "react/promise": "^2.4"
             },
             "require-dev": {
-                "api-clients/test-utilities": "^1.0",
+                "api-clients/test-utilities": "^3.0",
                 "container-interop/container-interop": "^1.1",
                 "guzzlehttp/psr7": "^1.3"
             },
@@ -54,7 +54,7 @@
                 }
             ],
             "description": "Request middleware",
-            "time": "2017-01-25T20:36:05+00:00"
+            "time": "2017-03-04T11:38:16+00:00"
         },
         {
             "name": "joshdifabio/resource-pool",

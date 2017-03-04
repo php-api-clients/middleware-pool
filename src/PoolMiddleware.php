@@ -2,6 +2,7 @@
 
 namespace ApiClients\Middleware\Pool;
 
+use ApiClients\Foundation\Middleware\ErrorTrait;
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
 use ApiClients\Foundation\Middleware\Priority;
 use Psr\Http\Message\RequestInterface;
@@ -13,6 +14,8 @@ use function React\Promise\resolve;
 
 class PoolMiddleware implements MiddlewareInterface
 {
+    use ErrorTrait;
+
     /**
      * @var Allocation
      */
