@@ -14,6 +14,9 @@ To install via [Composer](http://getcomposer.org/), use the command below, it wi
 ```
 composer require api-clients/middleware-pool 
 ```
+# Usage
+
+[See the transport package how to use this middleware.](https://github.com/php-api-clients/transport#middleware)
 
 # License
 
