@@ -2,9 +2,10 @@
 
 namespace ApiClients\Middleware\Pool;
 
+use ApiClients\Foundation\Middleware\Annotation\First;
+use ApiClients\Foundation\Middleware\Annotation\Last;
 use ApiClients\Foundation\Middleware\ErrorTrait;
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
-use ApiClients\Foundation\Middleware\Priority;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;
@@ -25,9 +26,14 @@ class PoolMiddleware implements MiddlewareInterface
      * @param RequestInterface $request
      * @param array $options
      * @return CancellablePromiseInterface
+     *
+     * @First()
      */
-    public function pre(RequestInterface $request, array $options = []): CancellablePromiseInterface
-    {
+    public function pre(
+        RequestInterface $request,
+        string $transactionId,
+        array $options = []
+    ): CancellablePromiseInterface {
         if (!isset($options[self::class][Options::POOL])) {
             return resolve($request);
         }
@@ -44,21 +50,18 @@ class PoolMiddleware implements MiddlewareInterface
      * @param ResponseInterface $response
      * @param array $options
      * @return CancellablePromiseInterface
+     *
+     * @Last()
      */
-    public function post(ResponseInterface $response, array $options = []): CancellablePromiseInterface
-    {
+    public function post(
+        ResponseInterface $response,
+        string $transactionId,
+        array $options = []
+    ): CancellablePromiseInterface {
         if ($this->allocation instanceof Allocation) {
             $this->allocation->releaseOne();
         }
 
         return resolve($response);
-    }
-
-    /**
-     * @return int
-     */
-    public function priority(): int
-    {
-        return Priority::FIRST;
     }
 }
