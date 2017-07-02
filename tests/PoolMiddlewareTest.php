@@ -4,12 +4,9 @@ namespace ApiClients\Tests\Middleware\Pool;
 
 use ApiClients\Middleware\Pool\PoolMiddleware;
 use ApiClients\Tools\TestUtilities\TestCase;
-use Prophecy\Argument;
 use Psr\Http\Message\RequestInterface;
 use ResourcePool\Allocation;
 use ResourcePool\Pool;
-use function Clue\React\Block\await;
-use function React\Promise\resolve;
 
 class PoolMiddlewareTest extends TestCase
 {
@@ -31,7 +28,7 @@ class PoolMiddlewareTest extends TestCase
         });
 
         $preCalled = false;
-        $middleware->pre($request->reveal(), $options)->then(function () use (&$preCalled) {
+        $middleware->pre($request->reveal(), 'abc', $options)->then(function () use (&$preCalled) {
             $preCalled = true;
         });
 
@@ -42,6 +39,25 @@ class PoolMiddlewareTest extends TestCase
         self::assertTrue($preCalled);
     }
 
+    public function testRequestErrored()
+    {
+        $request = $this->prophesize(RequestInterface::class);
+
+        $pool = new Pool(1);
+        $options = [
+            PoolMiddleware::class => [
+                Pool::class => $pool,
+            ],
+        ];
+        $middleware = new PoolMiddleware();
+
+        self::assertSame(0, $pool->getUsage());
+        $middleware->pre($request->reveal(), 'abc', $options);
+        self::assertSame(1, $pool->getUsage());
+        $middleware->error(new \Exception(), 'abc', $options);
+        self::assertSame(0, $pool->getUsage());
+    }
+
     public function testRequestNoPool()
     {
         $request = $this->prophesize(RequestInterface::class);
@@ -50,7 +66,7 @@ class PoolMiddlewareTest extends TestCase
         $options = [];
         $middleware = new PoolMiddleware();
         $preCalled = false;
-        $middleware->pre($request->reveal(), $options)->then(function () use (&$preCalled) {
+        $middleware->pre($request->reveal(), 'abc', $options)->then(function () use (&$preCalled) {
             $preCalled = true;
         });
 
