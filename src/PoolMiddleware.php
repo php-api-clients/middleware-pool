@@ -40,7 +40,7 @@ class PoolMiddleware implements MiddlewareInterface
 
         /** @var Pool $pool */
         $pool = $options[self::class][Options::POOL];
-        return $pool->allocateOne()->then(function (Allocation $allocation) use ($request, $transactionId){
+        return $pool->allocateOne()->then(function (Allocation $allocation) use ($request, $transactionId) {
             $this->allocations[$transactionId] = $allocation;
             return resolve($request);
         });
@@ -76,6 +76,4 @@ class PoolMiddleware implements MiddlewareInterface
 
         return reject($throwable);
     }
-
-
 }
