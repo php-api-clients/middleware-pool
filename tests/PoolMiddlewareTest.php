@@ -39,6 +39,25 @@ class PoolMiddlewareTest extends TestCase
         self::assertTrue($preCalled);
     }
 
+    public function testRequestErrored()
+    {
+        $request = $this->prophesize(RequestInterface::class);
+
+        $pool = new Pool(1);
+        $options = [
+            PoolMiddleware::class => [
+                Pool::class => $pool,
+            ],
+        ];
+        $middleware = new PoolMiddleware();
+
+        self::assertSame(0, $pool->getUsage());
+        $middleware->pre($request->reveal(), 'abc', $options);
+        self::assertSame(1, $pool->getUsage());
+        $middleware->error(new \Exception(), 'abc', $options);
+        self::assertSame(0, $pool->getUsage());
+    }
+
     public function testRequestNoPool()
     {
         $request = $this->prophesize(RequestInterface::class);
