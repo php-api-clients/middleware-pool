@@ -4,16 +4,15 @@ namespace ApiClients\Middleware\Pool;
 
 use ApiClients\Foundation\Middleware\Annotation\First;
 use ApiClients\Foundation\Middleware\Annotation\Last;
-use ApiClients\Foundation\Middleware\ErrorTrait;
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;
-use function React\Promise\reject;
 use ResourcePool\Allocation;
 use ResourcePool\Pool;
-use function React\Promise\resolve;
 use Throwable;
+use function React\Promise\reject;
+use function React\Promise\resolve;
 
 class PoolMiddleware implements MiddlewareInterface
 {
@@ -23,8 +22,8 @@ class PoolMiddleware implements MiddlewareInterface
     private $allocations;
 
     /**
-     * @param RequestInterface $request
-     * @param array $options
+     * @param  RequestInterface            $request
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      *
      * @First()
@@ -40,15 +39,17 @@ class PoolMiddleware implements MiddlewareInterface
 
         /** @var Pool $pool */
         $pool = $options[self::class][Options::POOL];
+
         return $pool->allocateOne()->then(function (Allocation $allocation) use ($request, $transactionId) {
             $this->allocations[$transactionId] = $allocation;
+
             return resolve($request);
         });
     }
 
     /**
-     * @param ResponseInterface $response
-     * @param array $options
+     * @param  ResponseInterface           $response
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      *
      * @Last()
