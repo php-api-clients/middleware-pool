@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace ApiClients\Tests\Middleware\Pool;
 
@@ -8,9 +8,12 @@ use Psr\Http\Message\RequestInterface;
 use ResourcePool\Allocation;
 use ResourcePool\Pool;
 
+/**
+ * @internal
+ */
 class PoolMiddlewareTest extends TestCase
 {
-    public function testRequest()
+    public function testRequest(): void
     {
         $request = $this->prophesize(RequestInterface::class);
 
@@ -23,12 +26,12 @@ class PoolMiddlewareTest extends TestCase
             ],
         ];
         $middleware = new PoolMiddleware();
-        $pool->allocateOne()->then(function (Allocation $passedAllocation) use (&$allocation) {
+        $pool->allocateOne()->then(function (Allocation $passedAllocation) use (&$allocation): void {
             $allocation = $passedAllocation;
         });
 
         $preCalled = false;
-        $middleware->pre($request->reveal(), 'abc', $options)->then(function () use (&$preCalled) {
+        $middleware->pre($request->reveal(), 'abc', $options)->then(function () use (&$preCalled): void {
             $preCalled = true;
         });
 
@@ -39,7 +42,7 @@ class PoolMiddlewareTest extends TestCase
         self::assertTrue($preCalled);
     }
 
-    public function testRequestErrored()
+    public function testRequestErrored(): void
     {
         $request = $this->prophesize(RequestInterface::class);
 
@@ -58,7 +61,7 @@ class PoolMiddlewareTest extends TestCase
         self::assertSame(0, $pool->getUsage());
     }
 
-    public function testRequestNoPool()
+    public function testRequestNoPool(): void
     {
         $request = $this->prophesize(RequestInterface::class);
 
@@ -66,7 +69,7 @@ class PoolMiddlewareTest extends TestCase
         $options = [];
         $middleware = new PoolMiddleware();
         $preCalled = false;
-        $middleware->pre($request->reveal(), 'abc', $options)->then(function () use (&$preCalled) {
+        $middleware->pre($request->reveal(), 'abc', $options)->then(function () use (&$preCalled): void {
             $preCalled = true;
         });
 
